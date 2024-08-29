@@ -106,6 +106,32 @@ simu_new <- function(sce,
                      parallelization = "mcmapply",
                      BPPARAM = NULL,
                      filtered_gene){
+
+  # Normalization: Apply multiple cleaning steps to group_index and copula_list names
+  group_index <- trimws(group_index)                    # Trim whitespace
+  names(copula_list) <- trimws(names(copula_list))
+  
+  group_index <- tolower(group_index)                   # Convert to lowercase
+  names(copula_list) <- tolower(names(copula_list))
+  
+  group_index <- gsub("[^[:alnum:] ]", "", group_index) # Remove special characters
+  names(copula_list) <- gsub("[^[:alnum:] ]", "", names(copula_list))
+  
+  group_index <- gsub("\\s+", " ", group_index)         # Replace multiple spaces with a single space
+  names(copula_list) <- gsub("\\s+", " ", names(copula_list))
+  
+  group_index <- gsub("^0+", "", group_index)           # Remove leading zeros
+  names(copula_list) <- gsub("^0+", "", names(copula_list))
+  
+  group_index <- unique(group_index)                    # Remove duplicate entries
+  copula_list <- copula_list[unique(names(copula_list))]
+  
+  group_index <- group_index[group_index != ""]         # Remove empty strings
+  copula_list <- copula_list[names(copula_list) != ""]
+  
+  group_index <- sort(group_index)                      # Sort entries
+  copula_list <- copula_list[order(names(copula_list))]
+
   if(!is.null(quantile_mat) & !is.null(copula_list)) {
     stop("You can only provide either the quantile_mat or the copula_list!")
   }
@@ -166,7 +192,9 @@ simu_new <- function(sce,
           message("Length of copula_list: ", length(copula_list))
           # Print the names in copula_list and group_index to compare
           message("Names in copula_list: ", paste(names(copula_list), collapse = ", "))
+          message("Copula List Names: ", paste(names(copula_list), collapse = ", "))
           message("Names in group_index: ", paste(group_index, collapse = ", "))
+      
 
           if (!x %in% names(copula_list)) {
               stop("Error: Group '", x, "' not found in copula_list")
