@@ -145,6 +145,11 @@ simu_new <- function(sce,
         colnames(new_corr_group) <- "corr_group"
       }
       ind <- group_index[1] == "ind"
+      # Debugging line to check the state before processing groups
+      message("Use Copula to sample a multivariate quantile matrix")
+      message("group_index: ", paste0(group_index, collapse = ", "))
+      message("Names in copula_list: ", paste(names(copula_list), collapse = ", "))
+
       newmvn.list <-
         lapply(group_index, function(x,
                                      sce,
