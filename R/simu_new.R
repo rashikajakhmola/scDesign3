@@ -164,6 +164,10 @@ simu_new <- function(sce,
           message("group_index: ", paste0(group_index, collapse = ", "))
           message("Current group: ", x)
           message("Length of copula_list: ", length(copula_list))
+          # Print the names in copula_list and group_index to compare
+          message("Names in copula_list: ", paste(names(copula_list), collapse = ", "))
+          message("Names in group_index: ", paste(group_index, collapse = ", "))
+
           if (!x %in% names(copula_list)) {
               stop("Error: Group '", x, "' not found in copula_list")
           }
