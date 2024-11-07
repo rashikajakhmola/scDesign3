@@ -371,7 +371,8 @@ cal_cor <- function(norm.mat,
                     if_sparse = FALSE,
                     lambda = 0.05,
                     tol = 1e-8,
-                    ind = FALSE) {
+                    ind = FALSE,
+                    correlation_function = "default") {
   if (ind) {
     cor.mat <- diag(rep(1, dim(norm.mat)[2]))
     return(cor.mat)
