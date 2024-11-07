@@ -259,7 +259,8 @@ fit_copula <- function(sce,
             if_sparse = if_sparse,
             lambda = 0.05,
             tol = 1e-8,
-            ind = ind
+            ind = ind,
+            correlation_function = correlation_function
           )
           
           #message("Sample MVN")
