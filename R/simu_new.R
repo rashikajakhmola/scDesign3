@@ -163,6 +163,9 @@ simu_new <- function(sce,
             curr_ncell_idx <-which(new_corr_group[, 1] == x)
             #paste0("Cell", which(new_corr_group[, 1] == x))
           }
+          print(paste("group_index values:", paste(group_index, collapse = ", ")))
+          print(paste("Current group index (x):", x))
+          print(paste("Length of copula_list:", length(copula_list)))
           cor.mat <- copula_list[[x]]
           
           if(curr_ncell == 0) {
